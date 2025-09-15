@@ -42,7 +42,7 @@ export default function BeautyAdvisor() {
 
     try {
       // ✅ Production API
-      const res = await fetch("https://c9e4968c-9d97-4a60-9d16-cc12dda8e50b-00-30wlxyrayxne2.pike.replit.dev/chat", {
+      const res = await fetch("https://test-0nbl.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId, message: input })
