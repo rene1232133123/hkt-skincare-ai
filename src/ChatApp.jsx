@@ -8,6 +8,7 @@ export default function BeautyAdvisor() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
+  const [productImages, setProductImages] = useState([]);
 
   const beautyProductopenSourceImages = [
     "https://images.pexels.com/photos/2113855/pexels-photo-2113855.jpeg",
@@ -58,6 +59,16 @@ export default function BeautyAdvisor() {
 
       const responseData = await res.json();
       console.log("Response data:", responseData);
+            
+      // Assign images only once per product set
+      if (responseData.products && Array.isArray(responseData.products)) {
+        const images = responseData.products.map(product =>
+          product.img_link ? product.img_link : beautyProductopenSourceImages[Math.floor(Math.random() * beautyProductopenSourceImages.length)]
+        );
+        setProductImages(images);
+      } else {
+        setProductImages([]);
+      }
 
       setData(responseData); // <-- update data state
 
@@ -164,9 +175,7 @@ export default function BeautyAdvisor() {
         <div style={{ display: "flex", gap: "16px", padding: "16px 32px", marginBottom: "90px" }}>
             {data.products && Array.isArray(data.products) && data.products.map((product, i) => {
 
-              // Pick a random image for each product
-              const randomImg = beautyProductopenSourceImages[Math.floor(Math.random() * beautyProductopenSourceImages.length)];
-              const imgSrc = product.img_link ? product.img_link : randomImg;
+            const imgSrc = productImages[i] || beautyProductopenSourceImages[0];
               return (
                 <div key={i} style={{ background: "#fff", borderRadius: "12px", padding: "16px", boxShadow: "0 2px 6px rgba(0,0,0,0.1)", flex: "1 1 200px" }}>
                   <img src={imgSrc} alt="product" style={{ width: "100%", height: "50%", objectFit: "cover", borderRadius: "8px", marginBottom: "8px" }} />
