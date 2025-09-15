@@ -42,18 +42,18 @@ export default function BeautyAdvisor() {
 
     try {
       // ✅ Production API
-      const res = await fetch("https://test-0nbl.onrender.com/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ session_id: sessionId, message: input })
-      });
-
-      // 🔄 Local API (uncomment when running your own backend)
-      // const res = await fetch("http://localhost:8000/chat", {
+      // const res = await fetch("https://c9e4968c-9d97-4a60-9d16-cc12dda8e50b-00-30wlxyrayxne2.pike.replit.dev/chat", {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },
       //   body: JSON.stringify({ session_id: sessionId, message: input })
       // });
+
+      // 🔄 Local API (uncomment when running your own backend)
+      const res = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, message: input })
+      });
     
 
       const responseData = await res.json();
@@ -169,10 +169,10 @@ export default function BeautyAdvisor() {
               const imgSrc = product.img_link ? product.img_link : randomImg;
               return (
                 <div key={i} style={{ background: "#fff", borderRadius: "12px", padding: "16px", boxShadow: "0 2px 6px rgba(0,0,0,0.1)", flex: "1 1 200px" }}>
-                  <img src={imgSrc} alt="product" style={{ width: "100%", height: "100px", objectFit: "cover", borderRadius: "8px", marginBottom: "8px" }} />
+                  <img src={imgSrc} alt="product" style={{ width: "100%", height: "50%", objectFit: "cover", borderRadius: "8px", marginBottom: "8px" }} />
                   <h4 style={{ margin: "0 0 8px", color: "#d63384" }}>{product.name}</h4>
                   {product.brand && <p style={{ margin: 0, color: "#555" }}><strong>Brand:</strong> {product.brand}</p>}
-                  {product.price && <p style={{ margin: 0, color: "#555" }}><strong>Price:</strong> {product.price}$</p>}
+                  {product.price && <p style={{ margin: 0, color: "#555" }}><strong>Price:</strong> ${product.price}</p>}
                   {product.description && <i style={{ margin: 0, color: "#555", fontSize: "0.95em" }}><strong>Description:</strong> {product.description}</i>}
                 </div>
               );
